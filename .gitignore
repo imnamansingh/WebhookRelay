@@ -49,5 +49,5 @@ Engine/vcpkg_installed/
 *.env
 
 # other
-**/readme.md
-**/README.md
+**/notes.md
+**/NOTES.md
