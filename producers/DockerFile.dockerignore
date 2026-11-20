@@ -1,0 +1,24 @@
+# Dependencies are installed in the image.
+node_modules/
+
+# Local configuration and secrets are supplied at runtime.
+.env
+.env.*
+!.env.example
+
+# Repository and editor metadata.
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+
+# Generated files and logs.
+build/
+dist/
+coverage/
+*.log
+npm-debug.log*
+
+# Local documentation is not needed by the service image.
+notes.md

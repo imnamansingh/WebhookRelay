@@ -1,6 +1,8 @@
 import kafka from "./kafkaClient.js"
 
-const producer = kafka.producer();
+const producer = kafka.producer({
+    idempotent: true
+});
 
 const connectProducer = async () => {
     try {

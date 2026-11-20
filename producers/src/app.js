@@ -12,7 +12,10 @@ app.use("/api/v1/producer", producerRouter);
 
 app.use((error, req, res, next) => {
 
-    return res.status(500).json("Internal Server Error")
+    return res.status(500).json({
+        status: 500,
+        statusText: "Internal Server Error"
+    })
 
 })
 

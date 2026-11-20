@@ -1,18 +1,6 @@
 import "dotenv/config";
 import app from "./app.js";
-import { connectDB, disconnectDB } from "./db/index.js";
 import { connectProducer, disconnectProducer } from "./utils/kafkaProducer.js";
-
-const connectDBAndProducer = async () => {
-    try {
-
-        await connectDB();
-        await connectProducer();
-
-    } catch (error) {
-        console.log("Error while connection DB and Kafka Producer: ", error)
-    }
-}
 
 const port = Number(process.env.PORT || 3000)
 let server;
@@ -41,7 +29,6 @@ async function shutdown(signal){
         }
 
         await disconnectProducer()
-        await disconnectDB()
         console.log("shutdown completed")
     } catch (error) {
         console.log("Error while shutting down: ", error)
@@ -57,7 +44,7 @@ process.once("SIGTERM", () => {
     void shutdown("SIGTERM");
 })
 
-connectDBAndProducer()
+connectProducer()
 .then(() => {
     server = app.listen(port, () => {
         console.log(`Server is listening on port ${port}`)
