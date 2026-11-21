@@ -1,9 +1,10 @@
 import producer from "../utils/kafkaProducer.js"
 
 const handleWebhooks = async (req, res, next) => {
+
+    const topic = "webhooks"
+
     try {
-        
-        const topic = "webhooks"
 
         const payload = {
             headers: req.headers,
@@ -31,9 +32,10 @@ const handleWebhooks = async (req, res, next) => {
 }
 
 const handleFailedWebhooks = async (req, res, next) => {
-    try {
 
-        const topic = req.body?.topicName || "webhooks-retry-60s"
+    const topic = req.body?.topicName || "webhooks-retry-60s"
+    
+    try {
 
         const payload = {
             headers: req.headers,

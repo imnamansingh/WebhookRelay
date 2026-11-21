@@ -76,7 +76,7 @@ async function handleFailure(topic, partition, message, errorReason) {
     errorReason,
   });
 
-  console.error(`Retries exhausted for offset ${message.offset} from topic ${topic} and partition ${partition}. Saved to MongoDB DLQ with id ${saved._id}`);
+  console.log(`Retries exhausted for offset ${message.offset} from topic ${topic} and partition ${partition}. Saved to MongoDB DLQ with id ${saved._id}`);
 
 }
 
@@ -147,17 +147,14 @@ const main = async () => {
 
                 } catch (error) {
 
-                  console.log(`Error while handling failed webhook: topic=${topic}, partition=${partition}, offset=${message.offset}, eventId=${message.key?.toString() ?? "n/a"}`)
+                  console.log(`Error while handling failed webhook: topic=${topic}, partition=${partition}, offset=${message.offset}, eventId=${message.key?.toString() ?? "n/a"}, ${error.message}`,)
         
                 }
-
             }
 
             resolveOffset(message.offset);
 
-          }
-
-            
+          }    
         },
     });
 }
@@ -192,6 +189,7 @@ process.once("SIGTERM", () => void shutdown("SIGTERM"));
 
 main()
 .catch((error) => {
+  console.log(error.message);
   process.exitCode = 1;
 })
 
