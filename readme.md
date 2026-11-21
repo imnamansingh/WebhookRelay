@@ -33,8 +33,8 @@ The Express API listens on port `3000` by default. Routes are mounted under `/ap
 
 | Method | Path | Purpose |
 | --- | --- | --- |
-| `POST` | `/api/v1/producer/webhook` | Publishes a webhook envelope to `webhooks`. |
-| `POST` | `/api/v1/producer/failed_webhook` | Publishes the `webhook` in the request body to the retry topic specified by `topicName`, defaulting to `webhooks-retry-60s`. |
+| `POST` | `/api/v1/producer/webhook` | Public endpoint for third-party senders; publishes a webhook envelope to `webhooks`. |
+| `POST` | `/api/v1/producer/failed_webhook` | Internal Consumer-to-Producer endpoint for retrying failed webhooks. Publishes the `webhook` in the request body to the retry topic specified by `topicName`, defaulting to `webhooks-retry-60s`. |
 
 For `/webhook`, the Producer creates an envelope containing the request headers, JSON body, and receive timestamp. It uses `x-event-id` as the Kafka message key. For `/failed_webhook`, the request body contains `webhook` and `topicName`; the `x-retry-count` request header is copied to the Kafka record header.
 
